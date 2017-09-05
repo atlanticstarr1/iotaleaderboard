@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>Use this area to information.</p>
+<script src="~/lib/iota.lib.js/dist/iota.js"></script>
+<script>
+    var sendSeed = '9PGNQVJODEXLVDNWTYYRKWZEXLRSTVRYOMSVRXBTNIGFTGVFJCGXWKMWN9GYPB9HRI9MOIVNGLG9NNTHY';
+    var recvSeed = 'OWZYQOZSPUKCQYMLSVFPLU9VYTGSYILPFSKZHZCLLSALTEDMQOJVJHXJPLTDJHGXQRYVDTTOVKNOWKIQI';
+    // Create IOTA instance with host and port as provider
+    //var iota = new IOTA({
+    //    'provider': 'https://sandbox.iota.org/api/v1/',
+    //    'sandbox': true,
+    //    'token':'ede92370-e450-4e72-a53c-536792014dec'
+    //});
+    var iota = new IOTA({
+        'host': 'http://35.185.10.245:14265',
+        //'host': 'http://88.198.230.98:14265',
+        'port': 14265
+    });
+    iota.api.getNodeInfo(function (error, success) {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log(success);
+        }
+    });
+    // Deterministically generates a new address for the specified seed with a checksum
+    iota.api.getNewAddress(recvSeed, { 'checksum': true }, function (e, address) {
+        if (!e) {
+            console.log("Generated new address: ", address);
+            // the message which we will send with the transaction
+            var messageToSend = {
+                'name': 'Dominik',
+                'message': 'My first message sent with IOTA.'
+            }
+            // Stringify to JSON 
+            var messageStringified = JSON.stringify(messageToSend);
+            // Convert the string to trytes 
+            var messageTrytes = iota.utils.toTrytes(messageStringified);
+            console.log('message: ' + messageTrytes);
+            // here we define the transfers object, each entry is an individual transaction 
+            var transfer = [{
+                'address': address,
+                'value': '',
+                'message': messageTrytes
+            }];
+            console.log(transfer);
+            // We send the transfer from this seed, with depth 4 and minWeightMagnitude 18
+            iota.api.sendTransfer(sendSeed, 4, 18, transfer, function (e, bundle) {
+                debugger;
+                if (e) throw e;
+                console.log("Successfully sent your transfer: ", bundle);
+            })
+        } else {
+            console.log("Something went wrong: ", e);
+        }
+    });
+    
+
+</script>

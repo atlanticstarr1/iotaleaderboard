@@ -1,0 +1,48 @@
+{
+  "name": "iota.lib.js",
+  "version": "0.4.0",
+  "description": "Javascript Library for IOTA",
+  "main": "./dist/iota.js",
+  "authors": [
+    {
+      "name": "Dominik Schiener (IOTA Foundation)",
+      "website": "https://iota.org"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "iota",
+    "tangle",
+    "library",
+    "browser",
+    "javascript",
+    "micropayments",
+    "API"
+  ],
+  "bugs": {
+    "url": "https://github.com/iotaledger/iota.lib.js/issues"
+  },
+  "homepage": "https://github.com/iotaledger/iota.lib.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "lib",
+    "package.json",
+    "gulpfile.js",
+    "iota-browser.js",
+    ".gitignore"
+  ],
+  "_release": "0.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.4.0",
+    "commit": "e141b0d260658f02f267c342c2d8ca872a622270"
+  },
+  "_source": "https://github.com/iotaledger/iota.lib.js.git",
+  "_target": "v0.4.0",
+  "_originalSource": "iota.lib.js",
+  "_direct": true
+}
